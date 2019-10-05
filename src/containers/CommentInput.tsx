@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import CommentInput from '../components/CommentInput'
-import { addComment } from '../reducers/comments'
+import { Dispatch } from 'redux'
+
+import CommentInput, { IOnSubmit } from '../components/CommentInput'
+import { addComment, IStoreState, IComment, ICommentAction } from '../store/actions'
 
 interface IProps {
     comments: object[],
-    onSubmit: any
+    onSubmit: IOnSubmit
 }
 
 interface IState {
@@ -39,7 +41,7 @@ class CommentInputContainer extends Component<IProps, IState> {
         localStorage.setItem('username', username)
     }
 
-    handleSubmitComment(comment: any): void {
+    handleSubmitComment(comment: IComment): void {
         if(!comment) return
         if(!comment.username) return alert('请输入用户名')
         if(!comment.content) return alert('请输入评论内容')
@@ -62,15 +64,15 @@ class CommentInputContainer extends Component<IProps, IState> {
     }
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: IStoreState) => {
     return {
         comments: state.comments
     }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch<ICommentAction>) => {
     return {
-        onSubmit: (comment: any) => {
+        onSubmit: (comment: IComment) => {
             dispatch(addComment(comment))
         }
     }

@@ -1,14 +1,19 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { IComment } from '../store/actions';
+
+export interface IOnSubmit {
+    (a: IComment): void
+}
 
 interface IProps {
-    username: string,
-    onSubmit: any,
-    onUserNameInputBlur: any
+    username: string
+    onSubmit: IOnSubmit
+    onUserNameInputBlur: (...args: any[]) => void
 }
 
 interface IStates {
-    username: string,
+    username: string
     content: string
 }
 
@@ -23,7 +28,7 @@ class CommentInput extends Component<IProps, IStates> {
         username: ''
     }
 
-    public textarea: any;
+    public textarea: HTMLTextAreaElement | null = null;
 
     constructor(props: IProps) {
         super(props)
@@ -34,17 +39,17 @@ class CommentInput extends Component<IProps, IStates> {
     }
 
     componentDidMount() {
-        this.textarea.focus()
+        this.textarea!.focus()
     }
 
-    handleUsernameBlur(event: React.FormEvent<HTMLInputElement>): void {
+    handleUsernameBlur(event: React.FocusEvent<HTMLInputElement>): void {
         const { value }: { value: number | string } = event.currentTarget
         if(this.props.onUserNameInputBlur) {
             this.props.onUserNameInputBlur(value)
         }
     }
 
-    handleUsernameChange(event: React.FormEvent<HTMLInputElement>): void {
+    handleUsernameChange(event: React.ChangeEvent<HTMLInputElement>): void {
         const { value }: { value: number | string } = event.currentTarget
         this.setState({
             username: value

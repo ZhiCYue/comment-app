@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+
 import CommentList from '../components/CommentList'
-import { initComments, deleteComment } from '../reducers/comments'
+import { initComments, deleteComment, IStoreState, IComment, ICommentAction } from '../store/actions'
+import { Dispatch } from 'redux'
 
 interface IProps {
-    comments: any[],
-    initComments: any,
-    onDeleteComment: any
+    comments: IComment[]
+    initComments: (c: IComment[]) => void
+    onDeleteComment: (i: number) => void
 }
 
 class CommentListContainer extends Component<IProps, {}> {
@@ -22,7 +24,7 @@ class CommentListContainer extends Component<IProps, {}> {
     }
 
     private _loadComments() {
-        let comments = localStorage.getItem('comments')
+        let comments = localStorage.getItem('comments') as any
         comments = comments ? JSON.parse(comments) : []
         this.props.initComments(comments)
     }
@@ -48,15 +50,15 @@ class CommentListContainer extends Component<IProps, {}> {
     }
 }
 
-const mapStateToProps = (state: any): object => {
+const mapStateToProps = (state: IStoreState): object => {
     return {
         comments: state.comments
     }
 }
 
-const mapDispatchToProps = (dispatch: any): object => {
+const mapDispatchToProps = (dispatch: Dispatch<ICommentAction>): object => {
     return {
-        initComments: (comments: any[]) => {
+        initComments: (comments: IComment[]) => {
             dispatch(initComments(comments))
         },
         onDeleteComment: (commentIndex: number) => {

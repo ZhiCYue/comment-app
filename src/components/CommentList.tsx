@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import Comment from './Comment'
+import { IComment } from '../store/actions'
 
 interface IProps {
-    comments: any[],
-    onDeleteComment: any
+    comments: IComment[]
+    onDeleteComment: (i: number) => void
 }
 
 class ComponentList extends Component<IProps, {}> {

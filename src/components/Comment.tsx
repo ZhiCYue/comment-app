@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { IComment } from '../store/actions';
 
 export interface IProps {
-    comment: object,
-    onDeleteComment: any,
+    comment: IComment,
+    onDeleteComment: (i: number) => void,
     index: number
 }
 

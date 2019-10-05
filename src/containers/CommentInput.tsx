@@ -4,13 +4,22 @@ import { connect } from 'react-redux'
 import CommentInput from '../components/CommentInput'
 import { addComment } from '../reducers/comments'
 
-class CommentInputContainer extends Component {
+interface IProps {
+    comments: object[],
+    onSubmit: any
+}
+
+interface IState {
+    username: string
+}
+
+class CommentInputContainer extends Component<IProps, IState> {
     static propTypes = {
         comments: PropTypes.array,
         onSubmit: PropTypes.func
     }
 
-    constructor(props) {
+    constructor(props: IProps) {
         super(props)
         this.state = { username: '' }
     }
@@ -26,11 +35,11 @@ class CommentInputContainer extends Component {
         }
     }
 
-    _saveUsername(username) {
+    _saveUsername(username: string) {
         localStorage.setItem('username', username)
     }
 
-    handleSubmitComment(comment) {
+    handleSubmitComment(comment: any) {
         if(!comment) return
         if(!comment.username) return alert('请输入用户名')
         if(!comment.content) return alert('请输入评论内容')
@@ -53,18 +62,18 @@ class CommentInputContainer extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
     return {
         comments: state.comments
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: any) => {
     return {
-        onSubmit: (comment) => {
+        onSubmit: (comment: any) => {
             dispatch(addComment(comment))
         }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CommentInputContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(CommentInputContainer as any)

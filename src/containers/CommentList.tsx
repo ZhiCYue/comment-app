@@ -4,7 +4,13 @@ import { connect } from 'react-redux'
 import CommentList from '../components/CommentList'
 import { initComments, deleteComment } from '../reducers/comments'
 
-class CommentListContainer extends Component {
+interface IProps {
+    comments: any[],
+    initComments: any,
+    onDeleteComment: any
+}
+
+class CommentListContainer extends Component<IProps, {}> {
     static propTypes = {
         comments: PropTypes.array,
         initComments: PropTypes.func,
@@ -21,7 +27,7 @@ class CommentListContainer extends Component {
         this.props.initComments(comments)
     }
 
-    handleDeleteComment(index) {
+    handleDeleteComment(index: number) {
         const { comments } = this.props
         const newComments = [
             ...comments.slice(index, 1)
@@ -42,21 +48,21 @@ class CommentListContainer extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
     return {
         comments: state.comments
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: any) => {
     return {
-        initComments: (comments) => {
+        initComments: (comments: any[]) => {
             dispatch(initComments(comments))
         },
-        onDeleteComment: (commentIndex) => {
+        onDeleteComment: (commentIndex: number) => {
             dispatch(deleteComment(commentIndex))
         }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CommentListContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(CommentListContainer as any)

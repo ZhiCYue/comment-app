@@ -1,7 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-export default class CommentInput extends Component {
+interface IProps {
+    username: string,
+    onSubmit: any,
+    onUserNameInputBlur: any
+}
+
+interface IStates {
+    username: string,
+    content: string
+}
+
+class CommentInput extends Component<IProps, IStates> {
     static propTypes = {
         username: PropTypes.any,
         onSubmit: PropTypes.func,
@@ -12,7 +23,9 @@ export default class CommentInput extends Component {
         username: ''
     }
 
-    constructor(props) {
+    public textarea: any;
+
+    constructor(props: IProps) {
         super(props)
         this.state = {
             username: props.username,
@@ -24,21 +37,24 @@ export default class CommentInput extends Component {
         this.textarea.focus()
     }
 
-    handleUsernameBlur(event) {
+    handleUsernameBlur(event: React.FormEvent<HTMLInputElement>) {
+        const { value }: { value: number | string } = event.currentTarget
         if(this.props.onUserNameInputBlur) {
-            this.props.onUserNameInputBlur(event.target.value)
+            this.props.onUserNameInputBlur(value)
         }
     }
 
-    handleUsernameChange(event) {
+    handleUsernameChange(event: React.FormEvent<HTMLInputElement>) {
+        const { value }: { value: number | string } = event.currentTarget
         this.setState({
-            username: event.target.value
+            username: value
         })
     }
 
-    handleContentChange(event) {
+    handleContentChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
+        const { value }: { value: number | string } = event.currentTarget
         this.setState({
-            content: event.target.value
+            content: value
         })
     }
 
@@ -83,3 +99,5 @@ export default class CommentInput extends Component {
         )
     }
 }
+
+export default CommentInput

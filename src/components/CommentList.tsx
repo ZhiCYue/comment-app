@@ -3,7 +3,12 @@ import PropTypes from 'prop-types'
 
 import Comment from './Comment'
 
-class ComponentList extends Component {
+interface IProps {
+    comments: any[],
+    onDeleteComment: any
+}
+
+class ComponentList extends Component<IProps, {}> {
     static propTypes = {
         comments: PropTypes.array,
         onDeleteComment: PropTypes.func
@@ -13,7 +18,7 @@ class ComponentList extends Component {
         comments: []
     }
 
-    handleDeleteComment(index) {
+    handleDeleteComment(index: number) {
         if(this.props.onDeleteComment) {
             this.props.onDeleteComment(index)
         }

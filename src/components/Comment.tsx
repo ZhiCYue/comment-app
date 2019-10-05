@@ -1,14 +1,26 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-class Comment extends Component {
+export interface IProps {
+    comment: object,
+    onDeleteComment: any,
+    index: number
+}
+
+export interface IStates {
+    timeString: string
+}
+
+class Comment extends Component<IProps, IStates> {
     static propTypes = {
         comment: PropTypes.object.isRequired,
         onDeleteComment: PropTypes.func,
         index: PropTypes.number
     }
 
-    constructor(props) {
+    private _timer: any;
+
+    constructor(props: IProps) {
         super(props)
         this.state = { timeString: '' }
     }
@@ -26,7 +38,7 @@ class Comment extends Component {
     }
 
     _updateTimeString() {
-        const comment = this.props.comment
+        const { comment }: { comment: any } = this.props
         const duration = (+Date.now() - comment.createTime) / 1000
         this.setState({
             timeString: duration > 60
@@ -35,7 +47,7 @@ class Comment extends Component {
         })
     }
 
-    _getProcessedContent(content) {
+    _getProcessedContent(content: string) {
         return content
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
@@ -52,7 +64,7 @@ class Comment extends Component {
     }
 
     render() {
-        const { comment } = this.props
+        const comment: any = this.props.comment
         return (
             <div className='comment'>
                 <div className='comment-user'>

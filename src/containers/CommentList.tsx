@@ -21,13 +21,13 @@ class CommentListContainer extends Component<IProps, {}> {
         this._loadComments()
     }
 
-    _loadComments() {
+    private _loadComments() {
         let comments = localStorage.getItem('comments')
         comments = comments ? JSON.parse(comments) : []
         this.props.initComments(comments)
     }
 
-    handleDeleteComment(index: number) {
+    handleDeleteComment(index: number): void {
         const { comments } = this.props
         const newComments = [
             ...comments.slice(index, 1)
@@ -48,13 +48,13 @@ class CommentListContainer extends Component<IProps, {}> {
     }
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: any): object => {
     return {
         comments: state.comments
     }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: any): object => {
     return {
         initComments: (comments: any[]) => {
             dispatch(initComments(comments))

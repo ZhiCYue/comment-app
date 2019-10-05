@@ -25,7 +25,7 @@ class Comment extends Component<IProps, IStates> {
         this.state = { timeString: '' }
     }
 
-    componentDidMount() {
+    componentDidMount(): void {
         this._updateTimeString()
         this._timer = setInterval(
             this._updateTimeString.bind(this),
@@ -33,11 +33,11 @@ class Comment extends Component<IProps, IStates> {
         )
     }
 
-    componentWillUnmount() {
+    componentWillUnmount(): void {
         clearInterval(this._timer)
     }
 
-    _updateTimeString() {
+    private _updateTimeString(): void {
         const { comment }: { comment: any } = this.props
         const duration = (+Date.now() - comment.createTime) / 1000
         this.setState({
@@ -47,7 +47,7 @@ class Comment extends Component<IProps, IStates> {
         })
     }
 
-    _getProcessedContent(content: string) {
+    private _getProcessedContent(content: string): string {
         return content
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
@@ -57,7 +57,7 @@ class Comment extends Component<IProps, IStates> {
             .replace(/`([\S\s]+?)`/g, '<code>$1</code>')
     }
 
-    handleDeleteComment() {
+    handleDeleteComment(): void {
         if(this.props.onDeleteComment) {
             this.props.onDeleteComment(this.props.index)
         }

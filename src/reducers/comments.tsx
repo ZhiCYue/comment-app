@@ -8,7 +8,7 @@ const defaultState = {
 }
 
 // reducer
-export default function (state = defaultState, action: any) {
+export default function (state = defaultState, action: any): any {
     switch (action.type) {
         case INIT_COMMENTS:
             // 初始化评论
@@ -33,14 +33,14 @@ export default function (state = defaultState, action: any) {
 }
 
 // action creators
-export const initComments = (comments: any[]) => {
+export const initComments = (comments: any[]): object => {
     return { type: INIT_COMMENTS, comments }
 }
 
-export const addComment = (comment: object) => {
+export const addComment = (comment: object): object => {
     return { type: ADD_COMMENT, comment }
 }
 
-export const deleteComment = (commentIndex: number) => {
+export const deleteComment = (commentIndex: number): object => {
     return { type: DELETE_COMMENT, commentIndex }
 }

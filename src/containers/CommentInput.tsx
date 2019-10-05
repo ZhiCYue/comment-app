@@ -28,18 +28,18 @@ class CommentInputContainer extends Component<IProps, IState> {
         this._loadUsername()
     }
 
-    _loadUsername() {
+    private _loadUsername(): void {
         const username = localStorage.getItem('username')
         if(username) {
             this.setState({ username })
         }
     }
 
-    _saveUsername(username: string) {
+    private _saveUsername(username: string): void {
         localStorage.setItem('username', username)
     }
 
-    handleSubmitComment(comment: any) {
+    handleSubmitComment(comment: any): void {
         if(!comment) return
         if(!comment.username) return alert('请输入用户名')
         if(!comment.content) return alert('请输入评论内容')

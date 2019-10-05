@@ -18,7 +18,7 @@ class ComponentList extends Component<IProps, {}> {
         comments: []
     }
 
-    handleDeleteComment(index: number) {
+    handleDeleteComment(index: number): void {
         if(this.props.onDeleteComment) {
             this.props.onDeleteComment(index)
         }

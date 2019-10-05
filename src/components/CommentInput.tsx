@@ -37,28 +37,28 @@ class CommentInput extends Component<IProps, IStates> {
         this.textarea.focus()
     }
 
-    handleUsernameBlur(event: React.FormEvent<HTMLInputElement>) {
+    handleUsernameBlur(event: React.FormEvent<HTMLInputElement>): void {
         const { value }: { value: number | string } = event.currentTarget
         if(this.props.onUserNameInputBlur) {
             this.props.onUserNameInputBlur(value)
         }
     }
 
-    handleUsernameChange(event: React.FormEvent<HTMLInputElement>) {
+    handleUsernameChange(event: React.FormEvent<HTMLInputElement>): void {
         const { value }: { value: number | string } = event.currentTarget
         this.setState({
             username: value
         })
     }
 
-    handleContentChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
+    handleContentChange(event: React.ChangeEvent<HTMLTextAreaElement>): void {
         const { value }: { value: number | string } = event.currentTarget
         this.setState({
             content: value
         })
     }
 
-    handleSubmit() {
+    handleSubmit(): void {
         if(this.props.onSubmit) {
             this.props.onSubmit({
                 username: this.state.username,
